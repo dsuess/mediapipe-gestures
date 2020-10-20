@@ -1,0 +1,39 @@
+# MediaPipe graph that performs multi-hand tracking on desktop with TensorFlow
+# Lite on CPU.
+# Used in the example in
+# mediapipie/examples/desktop/hand_tracking:multi_hand_tracking_cpu.
+
+# Images coming into and out of the graph.
+input_stream: "input_video"
+output_stream: "output_video"
+output_stream: "multi_hand_landmarks"
+output_stream: "multi_hand_rects"
+
+# Subgraph that detections hands (see multi_hand_detection_cpu.pbtxt).
+node {
+  calculator: "MultiHandDetectionSubgraph"
+  input_stream: "input_video"
+  output_stream: "DETECTIONS:multi_palm_detections"
+  output_stream: "NORM_RECTS:multi_hand_rects"
+}
+
+# Subgraph that localizes hand landmarks for multiple hands (see
+# multi_hand_landmark.pbtxt).
+node {
+  calculator: "MultiHandLandmarkSubgraph"
+  input_stream: "IMAGE:input_video"
+  input_stream: "NORM_RECTS:multi_hand_rects"
+  output_stream: "LANDMARKS:multi_hand_landmarks"
+}
+
+# Subgraph that renders annotations and overlays them on top of the input
+# images (see multi_hand_renderer_cpu.pbtxt).
+node {
+  calculator: "MultiHandRendererSubgraph"
+  input_stream: "IMAGE:input_video"
+  input_stream: "LANDMARKS:multi_hand_landmarks"
+  input_stream: "DETECTIONS:multi_palm_detections"
+  input_stream: "NORM_RECTS:0:multi_hand_rects"
+  input_stream: "NORM_RECTS:1:multi_hand_rects"
+  output_stream: "IMAGE:output_video"
+}

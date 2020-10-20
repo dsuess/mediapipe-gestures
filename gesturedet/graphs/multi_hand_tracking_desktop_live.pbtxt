@@ -6,6 +6,8 @@
 # Images coming into and out of the graph.
 input_stream: "input_video"
 output_stream: "output_video"
+output_stream: "multi_hand_landmarks"
+output_stream: "multi_palm_detections"
 
 # Determines if an input vector of NormalizedRect has a size greater than or
 # equal to the provided min_size.

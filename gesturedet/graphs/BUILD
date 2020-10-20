@@ -50,3 +50,15 @@ cc_library(
         "//gesturedet/graphs/subgraphs:multi_hand_renderer_cpu",
     ],
 )
+
+
+mediapipe_binary_graph(
+    name = "multi_hand_tracking_desktop_live",
+    graph = "multi_hand_tracking_desktop_live.pbtxt",
+    output_name = "multi_hand_tracking_desktop_live.binarypb",
+    deps = [
+        ":desktop_offline_calculators",
+        "@mediapipe//mediapipe/calculators/util:association_norm_rect_calculator",
+        "@mediapipe//mediapipe/calculators/util:collection_has_min_size_calculator",
+    ],
+)
