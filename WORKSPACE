@@ -8,6 +8,8 @@ http_archive(
     name = "mediapipe",
     strip_prefix = "mediapipe-0.7.11",
     urls = ["https://github.com/google/mediapipe/archive/v0.7.11.zip"],
+    patches = ["third_party/mediapipe-v0.7.11.diff"],
+    patch_args = ["-p1"]
 )
 
 
