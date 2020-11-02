@@ -52,3 +52,36 @@ pybind_extension(
         "@mediapipe//mediapipe/python/pybind:validated_graph_config",
     ],
 )
+
+
+pybind_extension(
+    name = "_framework_bindings_gpu",
+    srcs = ["framework_bindings.cc"],
+    linkopts = select({
+        "@mediapipe//third_party:opencv_source_build": [],
+        "//conditions:default": [
+            "-lopencv_core",
+            "-lopencv_imgproc",
+            "-lopencv_highgui",
+            "-lopencv_video",
+            "-lopencv_features2d",
+            "-lopencv_calib3d",
+            "-lopencv_imgcodecs",
+        ],
+    }),
+    deps = [
+        ":builtin_calculators",
+        "@mediapipe//mediapipe/python/pybind:calculator_graph",
+        "@mediapipe//mediapipe/python/pybind:image_frame",
+        "@mediapipe//mediapipe/python/pybind:matrix",
+        "@mediapipe//mediapipe/python/pybind:packet",
+        "@mediapipe//mediapipe/python/pybind:packet_creator",
+        "@mediapipe//mediapipe/python/pybind:packet_getter",
+        "@mediapipe//mediapipe/python/pybind:resource_util",
+        "@mediapipe//mediapipe/python/pybind:timestamp",
+        "@mediapipe//mediapipe/python/pybind:validated_graph_config",
+        "@mediapipe//mediapipe/gpu:gl_calculator_helper",
+        "@mediapipe//mediapipe/gpu:gpu_buffer",
+        "@mediapipe//mediapipe/gpu:gpu_shared_data_internal",
+    ],
+)
