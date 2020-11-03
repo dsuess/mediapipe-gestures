@@ -62,3 +62,10 @@ mediapipe_binary_graph(
         "@mediapipe//mediapipe/calculators/util:collection_has_min_size_calculator",
     ],
 )
+
+
+mediapipe_binary_graph(
+    name = "raw_multi_hand_tracking_desktop_live",
+    graph = "raw_multi_hand_tracking_desktop_live.pbtxt",
+    output_name = "raw_multi_hand_tracking_desktop_live.binarypb",
+)
