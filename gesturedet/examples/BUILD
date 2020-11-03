@@ -20,6 +20,6 @@ cc_binary(
     name = "live_demo",
     deps = [
         "@mediapipe//mediapipe/examples/desktop:demo_run_graph_main",
-        "//gesturedet/graphs:multi_hand_desktop_tflite_calculators",
+        "//gesturedet/graphs:multi_hand_desktop_tflite_calculators_cpu",
     ],
 )

@@ -39,8 +39,22 @@ cc_library(
 )
 
 
+# TODO Use flag to decide GPU/no-GPU build
 cc_library(
-    name = "multi_hand_desktop_tflite_calculators",
+    name = "multi_hand_desktop_tflite_calculators_cpu",
+    deps = [
+        ":desktop_offline_calculators",
+        "@mediapipe//mediapipe/calculators/util:association_norm_rect_calculator",
+        "@mediapipe//mediapipe/calculators/util:collection_has_min_size_calculator",
+        "//gesturedet/graphs/subgraphs:multi_hand_detection_cpu",
+        "//gesturedet/graphs/subgraphs:multi_hand_landmark_cpu",
+        "//gesturedet/graphs/subgraphs:multi_hand_renderer_cpu",
+    ],
+)
+
+
+cc_library(
+    name = "multi_hand_desktop_tflite_calculators_gpu",
     deps = [
         ":desktop_offline_calculators",
         "@mediapipe//mediapipe/calculators/util:association_norm_rect_calculator",

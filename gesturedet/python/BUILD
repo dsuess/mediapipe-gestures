@@ -16,14 +16,8 @@ load("@pybind11_bazel//:build_defs.bzl", "pybind_extension")
 
 licenses(["notice"])  # Apache 2.0
 
-cc_library(
-    name = "builtin_calculators",
-    deps = [
-        "@mediapipe//mediapipe/calculators/core:pass_through_calculator",
-        "//gesturedet/graphs:multi_hand_desktop_tflite_calculators",
-    ],
-)
 
+# TODO Use flag to decide between build
 pybind_extension(
     name = "_framework_bindings",
     srcs = ["framework_bindings.cc"],
@@ -40,7 +34,10 @@ pybind_extension(
         ],
     }),
     deps = [
-        ":builtin_calculators",
+        # BUILTIN CALCULATORS --
+        "@mediapipe//mediapipe/calculators/core:pass_through_calculator",
+        "//gesturedet/graphs:multi_hand_desktop_tflite_calculators_cpu",
+        # ------
         "@mediapipe//mediapipe/python/pybind:calculator_graph",
         "@mediapipe//mediapipe/python/pybind:image_frame",
         "@mediapipe//mediapipe/python/pybind:matrix",
@@ -70,7 +67,10 @@ pybind_extension(
         ],
     }),
     deps = [
-        ":builtin_calculators",
+        # BUILTIN CALCULATORS --
+        "@mediapipe//mediapipe/calculators/core:pass_through_calculator",
+        "//gesturedet/graphs:multi_hand_desktop_tflite_calculators_gpu",
+        # ------
         "@mediapipe//mediapipe/python/pybind:calculator_graph",
         "@mediapipe//mediapipe/python/pybind:image_frame",
         "@mediapipe//mediapipe/python/pybind:matrix",
